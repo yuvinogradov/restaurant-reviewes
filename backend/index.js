@@ -8,14 +8,17 @@ const MongoClient = mongodb.MongoClient //получаем доступ к Mongo
 
 const port = process.env.PORT || 8000  // таким образом получаем доступ к переменной окружения
 
-
+// console.log('-------------------')
+// console.log(dotenv)
+// console.log(process.env)
+// console.log(process.env.RESTREVIEWS_DB_URI)
 // подключаемся к БД:
 MongoClient.connect(
     process.env.RESTREVIEWS_DB_URI,
-    { //настройки подключения к бд
-        poolSize: 50,  // только 50 человек могут законнектиться одновременно
+    {//настройки подключения к бд
+        // poolSize: 50,  // только 50 человек могут законнектиться одновременно
         wtimeoutMS: 2500, //таймаут запроса
-        useNewUrlParse: true // использовать новый парсер
+        useNewUrlParser: true // использовать новый парсер    
     }
 )
     .catch(err => {
