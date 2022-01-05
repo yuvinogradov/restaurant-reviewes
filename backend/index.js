@@ -1,6 +1,7 @@
 import app from "./server.js"
 import mongodb from "mongodb"
 import dotenv from "dotenv" // позволяет получить доступ к переменным окружения
+import RestaurantsDAO from "./dao/restaurantsDAO.js"
 
 dotenv.config() // загружаем переменные окружения
 
@@ -26,6 +27,9 @@ MongoClient.connect(
         process.exit(1)
     })
     .then(async client => { // создаем асинхронную функцию
+        // сразу, после того как подключились к МонгоДБ (МонгоКлайент.коннект)
+        // и перед запуском сервера, вызываем
+        await RestaurantsDAO.injectDB(client) // так мы получаем initial reference на нашу коллекцию ресторанов
         app.listen(port, () => {   // ЗАПУСКАЕМ СЕРВЕР после того, как законнектились к БД 
             console.log(`listening on port ${port}`)
         })
